@@ -9,3 +9,6 @@ dbt-core>=1.7.9,<1.8.0
 
 # extra features
 sqlfluff>=2.3.5,<3
+
+# Airflow client
+apache-airflow-client==2.9.0

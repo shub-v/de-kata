@@ -1,0 +1,106 @@
+version: '3'
+
+# Common Airflow configuration using anchors & aliases
+x-airflow-common:
+  &airflow-common
+  build:
+    context: containers/
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__CORE__FERNET_KEY: ''
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__API__AUTH_BACKEND: 'airflow.api.auth.backend.basic_auth'
+    AIRFLOW_CONN_POSTGRES_DEFAULT: postgres://airflow:airflow@postgres:5432/airflow
+
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./data:/opt/airflow/data
+    - ./logs:/opt/airflow/logs
+    - ./tests:/opt/airflow/tests
+    - ./dbt:/opt/airflow/dbt
+    - ./dbt/raw_data:/opt/airflow/raw_data
+  user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  # Postgres service for Airflow metadata database
+  postgres:
+    container_name: postgres
+    image: postgres:16
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "airflow" ]
+      interval: 5s
+      retries: 5
+    restart: always
+    ports:
+      - "5432:5432"
+
+  # Airflow webserver service
+  airflow-webserver:
+    <<: *airflow-common
+    container_name: webserver
+    command: webserver
+    ports:
+      - 8080:8080
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "curl",
+          "--fail",
+          "http://localhost:8080/health"
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: always
+
+  # Airflow scheduler service
+  airflow-scheduler:
+    <<: *airflow-common
+    container_name: scheduler
+    command: scheduler
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"'
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: always
+
+  # Airflow initialization service
+  airflow-init:
+    <<: *airflow-common
+    command: version
+    environment:
+      <<: *airflow-common-env
+      _AIRFLOW_DB_UPGRADE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
+      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
+
+  # dbt service
+#  dbt:
+#    build: .
+#    container_name: dbt_container
+#    volumes:
+#      - .:/usr/src/app  # Mount your dbt project into the container
+#    environment:
+#      - DBT_PROFILES_DIR=/usr/src/app  # dbt profiles directory
+##    command: dbt run  # This can be changed to any dbt command
+#    stdin_open: true
+#    tty: true
+#    depends_on:
+#      - postgres
