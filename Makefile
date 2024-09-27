@@ -15,4 +15,4 @@ down:
 restart: down up
 
 sh:
-	docker exec -ti webserver bash
+	docker exec -ti scheduler /bin/bash

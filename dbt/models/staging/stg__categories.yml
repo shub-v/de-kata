@@ -17,8 +17,3 @@ models:
         tests:
           - accepted_values:
               values: [ True, False ]
-#        tests:
-#          - dbt_utils.expression_is_true:
-#              expression: "= True OR parent_id is not null"
-#              config:
-#                severity: error

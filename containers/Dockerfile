@@ -11,7 +11,7 @@ COPY requirements.txt ./
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-## Set Airflow home (if needed) or any other environment variables for dbt and airflow
+# Set environment variables
 ENV AIRFLOW_HOME=/opt/airflow
 ENV DBT_PROFILES_DIR=/opt/airflow/dbt
 ENV DBT_PROJECT_DIR=/opt/airflow/dbt

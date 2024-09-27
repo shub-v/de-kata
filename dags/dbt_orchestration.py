@@ -21,5 +21,6 @@ with DAG(
         bash_command='dbt run --select stg__chats stg__categories chat_volume_analysis && dbt test --select stg__chats stg__categories',
     )
 
+    # Set the task dependencies
     source_tests >> run_models
 
