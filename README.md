@@ -1,4 +1,14 @@
-# Data Engineer Exercise
+````text
+                                         /$$   /$$ /$$$$$$$ 
+                                        | $$  | $$| $$__  $$
+                                        | $$  | $$| $$  \ $$
+                                        | $$  | $$| $$$$$$$/
+                                        | $$  | $$| $$____/ 
+                                        | $$  | $$| $$      
+                                        |  $$$$$$/| $$      
+                                         \______/ |__/      
+````
+
 
 This project is focused on orchestrating data workflows using Airflow and dbt for efficient data pipeline management. The main objective is to perform transformations on `raw data` and ensure data quality through testing, using `DuckDB` as the underlying data warehouse. The project ingests `chats` and `categories`, transforms it into a more analyzable format, and validates the data through automated tests.
 
