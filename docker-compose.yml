@@ -17,7 +17,6 @@ x-airflow-common:
 
   volumes:
     - ./dags:/opt/airflow/dags
-    - ./data:/opt/airflow/data
     - ./logs:/opt/airflow/logs
     - ./tests:/opt/airflow/tests
     - ./dbt:/opt/airflow/dbt
@@ -90,17 +89,3 @@ services:
       _AIRFLOW_WWW_USER_CREATE: 'true'
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
-
-  # dbt service
-#  dbt:
-#    build: .
-#    container_name: dbt_container
-#    volumes:
-#      - .:/usr/src/app  # Mount your dbt project into the container
-#    environment:
-#      - DBT_PROFILES_DIR=/usr/src/app  # dbt profiles directory
-##    command: dbt run  # This can be changed to any dbt command
-#    stdin_open: true
-#    tty: true
-#    depends_on:
-#      - postgres

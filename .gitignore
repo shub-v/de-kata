@@ -162,6 +162,7 @@ cython_debug/
 .idea/
 /.user.yml
 /de-kata.duckdb
-/de_kata.duckdb
-/dbt_packages/
+/dbt/de_kata1.duckdb
+/dbt/dbt_packages/
 /logs/
+/airflow/
