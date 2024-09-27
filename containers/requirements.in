@@ -12,3 +12,9 @@ sqlfluff>=2.3.5,<3
 
 # Airflow client
 apache-airflow-client==2.9.0
+
+# CI checks
+black==24.4.2
+flake8==7.0.0
+mypy==1.10.0
+isort==5.13.2

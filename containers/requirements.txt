@@ -18,6 +18,8 @@ attrs==24.2.0
     #   referencing
 babel==2.16.0
     # via agate
+black==24.4.2
+    # via -r requirements.in
 certifi==2024.8.30
     # via requests
 cffi==1.17.1
@@ -32,6 +34,7 @@ cli-helpers[styles]==2.3.1
     # via duckcli
 click==8.1.7
     # via
+    #   black
     #   dbt-core
     #   dbt-semantic-interfaces
     #   duckcli
@@ -64,6 +67,8 @@ duckdb==1.1.1
     #   duckcli
 exceptiongroup==1.2.2
     # via pytest
+flake8==7.0.0
+    # via -r requirements.in
 idna==3.10
     # via
     #   dbt-core
@@ -76,6 +81,8 @@ isodate==0.6.1
     # via
     #   agate
     #   dbt-core
+isort==5.13.2
+    # via -r requirements.in
 jinja2==3.1.4
     # via
     #   dbt-core
@@ -96,24 +103,36 @@ markupsafe==2.1.5
     # via jinja2
 mashumaro[msgpack]==3.13.1
     # via dbt-core
+mccabe==0.7.0
+    # via flake8
 minimal-snowplow-tracker==0.0.2
     # via dbt-core
 more-itertools==10.5.0
     # via dbt-semantic-interfaces
 msgpack==1.1.0
     # via mashumaro
+mypy==1.10.0
+    # via -r requirements.in
+mypy-extensions==1.0.0
+    # via
+    #   black
+    #   mypy
 networkx==3.2.1
     # via dbt-core
 packaging==24.1
     # via
+    #   black
     #   dbt-core
     #   pytest
 parsedatetime==2.6
     # via agate
 pathspec==0.11.2
     # via
+    #   black
     #   dbt-core
     #   sqlfluff
+platformdirs==4.3.6
+    # via black
 pluggy==1.5.0
     # via
     #   diff-cover
@@ -122,12 +141,16 @@ prompt-toolkit==3.0.47
     # via duckcli
 protobuf==4.25.5
     # via dbt-core
+pycodestyle==2.11.1
+    # via flake8
 pycparser==2.22
     # via cffi
 pydantic==2.9.2
     # via dbt-semantic-interfaces
 pydantic-core==2.23.4
     # via pydantic
+pyflakes==3.2.0
+    # via flake8
 pygments==2.18.0
     # via
     #   cli-helpers
@@ -184,14 +207,19 @@ text-unidecode==1.3
 toml==0.10.2
     # via sqlfluff
 tomli==2.0.1
-    # via pytest
+    # via
+    #   black
+    #   mypy
+    #   pytest
 tqdm==4.66.5
     # via sqlfluff
 typing-extensions==4.12.2
     # via
+    #   black
     #   dbt-core
     #   dbt-semantic-interfaces
     #   mashumaro
+    #   mypy
     #   pydantic
     #   pydantic-core
     #   sqlfluff
