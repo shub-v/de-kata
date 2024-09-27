@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: chat_volume_analysis
+    description: |
+      This model provides various statistics on chat volumes, including:
+      - The date with the lowest number of chats resolved.
+      - The date with the highest number of chats resolved.
+      - The median number of customer-initiated chats resolved per day.
+      - The ten most populous categories for chats created by customers.
+      - The ten categories with the lowest resolution rate.
+      - The ten categories with the fastest resolution time.
+      - The hourly distribution of chats by time-of-day and day-of-week.
+
+    columns:
+      - name: stat
+        description: |
+          The type of statistic being provided. For example:
+          - 'Lowest Resolved Chats Date'
+          - 'Highest Resolved Chats Date'
+          - 'Median Customer-Initiated Chats Resolved per Day'
+          - 'Ten most Populous Categories for Chats created by Customers'
+          - 'Ten Categories with the Lowest Resolution Rate'
+          - 'Ten Categories with the Fastest Resolution Time'
+          - 'Hourly Distribution'
+
+      - name: stat_attribute_1
+        description: |
+          This column contains either:
+          - The date when the chat was resolved
+          - The category of the chat
+          - A day-of-week and hour-of-day combination for the hourly distribution of chats.
+
+      - name: stat_attribute_2
+        description: |
+          The number of chats resolved on the given date or time period, or the number of chats within a category.
+        
+
+      - name: resolution_rate_percentage
+        description: |
+          This column contains either:
+          - The percentage of chats that were resolved for a given category or parent category. Only applies to the "Lowest Resolution Rate" statistic.
+          - The average resolution time (in hours) for a given category or parent category. Only applies to the "Fastest Resolution Time" statistic.
+          - The actual value for the "Median Customer-Initiated Chats Resolved per Day" statistic.
+          - The actual value for the "Hourly Distribution" statistic.

@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: stg__categories
+    description: Staged category data.
+    columns:
+      - name: id
+        description: Unique identifier for each category.
+      - name: parent_id
+        description: Parent category ID for hierarchical structure.
+        tests:
+          - relationships:
+              to: ref('stg__categories')
+              field: id
+      - name: disabled
+        description: Flag indicating if the category is disabled.
+        tests:
+          - accepted_values:
+              values: [ True, False ]
+#        tests:
+#          - dbt_utils.expression_is_true:
+#              expression: "= True OR parent_id is not null"
+#              config:
+#                severity: error

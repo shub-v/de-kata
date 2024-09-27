@@ -1,0 +1,7 @@
+de_kata:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: 'de_kata.duckdb'
+      threads: 24

@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg__chats
+    description: >
+      This model transforms chat data by converting timestamps from UTC to AEDT (Melbourne time).
+      It processes new or updated rows incrementally based on the created_at column.
+    columns:
+      - name: id
+        description: Unique identifier for each chat.
+        data_type: string
+      - name: chat_category_id
+        description: Identifier for the category of the chat.
+        data_type: string
+        tests:
+          - relationships:
+              to: ref('stg__categories')
+              field: id
+      - name: created_at_aedt
+        description: Chat creation timestamp converted from UTC to AEDT (Australia/Melbourne time).
+        data_type: timestamp
+      - name: resolved_at_aedt
+        description: Chat resolution timestamp converted from UTC to AEDT (Australia/Melbourne time).
+        data_type: timestamp
+      - name: is_customer_initiated
+        description: Flag indicating if the chat was initiated by the customer.
+        data_type: boolean
+

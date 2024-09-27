@@ -1,0 +1,72 @@
+---
+version: 2
+sources:
+  - name: raw_layer
+    meta:
+      external_location: "{{ env_var('RAW_DATA_PATH', './raw_data') }}/{name}.csv"
+    tables:
+      - name: de_test_chats
+        description: >
+          Chat sessions between a customer support agent and a customer.
+          Timestamps are recorded in UTC.
+          A sample of ~50,000 chats has been provided.
+          The sample has been selected randomly over an approx. four-month timeframe.
+        columns:
+          - name: id
+            description: Unique identifier for each chat session.
+            data_type: string # UUID
+            tests:
+              - unique
+              - not_null
+          - name: chat_category_id
+            description: Reference to the chat category.
+            data_type: string # UUID, relationship with categories.id
+          - name: created_at
+            description: Timestamp when the chat was created.
+            data_type: timestamp
+            tests:
+              - not_null
+          - name: is_customer_initiated
+            description: Flag indicating whether the chat was initiated by the customer.
+            data_type: boolean
+          - name: resolved_at
+            description: Timestamp when the chat was resolved.
+            data_type: timestamp
+            tests:
+              - dbt_utils.expression_is_true:
+                  expression: ">=created_at"
+
+
+      - name: de_test_categories
+        description: >
+          Categories denoting the topic of conversation in a chat.
+          Categories are hierarchical, with root nodes having a null parent_id.
+          Categories can be disabled, if a chat has a disabled category then it should be treated as having no category.
+        columns:
+          - name: id
+            description: Unique identifier for each category.
+            data_type: string # UUID
+            tests:
+              - unique
+              - not_null
+          - name: parent_id
+            description: Parent category ID for hierarchical structure.
+            data_type: string # UUID, relationship with categories.id
+            # todo
+          - name: disabled
+            description: Flag indicating if the category is disabled.
+            data_type: boolean
+            tests:
+              - not_null:
+                  config:
+                    warn_if: ">= 1"  # Warn if there are more than 5 null values
+                    error_if: ">= 10"  # Fail the test if there are more than 10 null values
+                    severity: error  # Set severity level to error
+
+#              - accepted_values:
+#                  values: [ True, False ]
+#                  config:
+#                    warn_if: ">0"  # Issue a warning if more than 5 invalid values are found
+#                    error_if: "> 10"  # Fail the test if more than 10 invalid values are found
+#                    severity: error  # Set severity to error
+
