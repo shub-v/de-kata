@@ -36,6 +36,17 @@ This project is focused on orchestrating data workflows using Airflow and dbt fo
     - Username: `airflow`
     - Password: `airflow`
 
+4. Test dbt models:
+    ```sh
+    dbt test # Runs all tests defined in the project, including source and model tests
+    ```
+   ```shell
+    dbt test --select source:raw_layer # Runs only the tests defined in the source layer
+    ```
+    ```shell
+    dbt test --select models/ # Runs only the tests defined in the models layer
+    ```
+
 ## Architecture
 
 - **dbt**: To transform the raw data into a more analyzable format.
@@ -44,6 +55,10 @@ This project is focused on orchestrating data workflows using Airflow and dbt fo
 - **Postgres**: To store metadata and logs.
 - **Docker**: To containerize the dbt and Airflow environment.
 ![Project Architecture](assets/img_1.png)
+
+The use of dbt for data transformation ensures that the pipeline is modular and easy to maintain, while DuckDB provides a high-performance local data warehouse for running complex queries. Airflow manages orchestration, scheduling, and monitoring, while Postgres ensures that the metadata and logs are stored persistently. Docker ties everything together by providing a consistent environment for running the entire stack, ensuring that the setup is reproducible across different environments.
+
+This architecture is highly adaptable, allowing for future growth, including the integration of new data sources, more complex transformations, or the scaling of workloads.
 
 
 ## Project Structure
@@ -65,6 +80,9 @@ The `anonymize_large_csv_chunked` DAG in the Airflow UI will look like the below
     - In the **categories** table, if the disabled column is `NULL` for a specific `id`, I assume that the `disabled` value from the corresponding `parent_id` should be used. For example, in the row `('161162d4-18b9-5cb0-be08-b54cbc321c37', '6c8be681-f04a-5a25-8efd-8feb0a21fc0e', None)`, since the `disabled` value for this `id` is `NULL`, we inherit the `disabled` status from its `parent_id` `('6c8be681-f04a-5a25-8efd-8feb0a21fc0e')`.
 2. **Timezone Conversion for Chats**
    - The timestamps in the raw chats data are converted to AEDT (Australian Eastern Daylight Time), as customer service agents are always rostered based on Melbourne’s timezone.
+3. **Separation of stg__chats and stg__categories for Chat Volume Analysis**
+   - I have chosen not to combine the `stg__chats` and `stg__categories` staging tables into a single intermediate or mart table for the chat_volume_analysis. Instead, I created a single model specifically for the analysis, which joins and aggregates the necessary data from these staging tables.
+
 ## Usage
 
 - Run Data Ingestion and Transformation with dbt:
@@ -92,7 +110,7 @@ Data quality checks implemented at multiple stages of the pipeline to ensure the
   - **Business Logic Validation**: Applying logic checks to ensure correctness, such as ensuring that `resolved_at` is always greater than or equal to `created_at`.
    
 By placing checks at both the source and staging layers, I ensure that data quality is assessed at every critical step of the pipeline, providing clean and reliable data for downstream processes.
-   
+
 > 2. How would you measure the overall data quality of these files?
 
 dbt tests implemented to enforce the data quality checks mentioned earlier. These tests validate key aspects across both the source and staging layers.
