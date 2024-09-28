@@ -162,3 +162,74 @@ The approach to handling invalid data depends on the business rules and the natu
 
 ```
 3. **Removing Bad Data**: If the invalid data can be excluded without affecting the overall pipeline, the process can continue with only the valid data. In this case, a warning test at the source level would monitor the occurrence of invalid data, while subsequent tests ensure the processed data is clean and usable.
+
+
+## Sensitivity
+> 1. What measures will need to be taken in controlling access to this open text
+data?
+
+
+### Chat Resolution Statistics
+
+| Stat Description                                  | Date        | Value |
+|---------------------------------------------------|-------------|-------|
+| Lowest Resolved Chats Date                        | 2000-05-04  | 15    |
+| Highest Resolved Chats Date                       | 2000-03-16  | 632   |
+
+### Median Customer-Initiated Chats Resolved per Day
+
+| Median Chats Resolved |
+|:---------------------:|
+|          201          |
+
+
+### Ten Most Populous Categories for Chats
+
+| Category ID                                | Num Chats |
+|--------------------------------------------|-----------|
+| d4d952b3-bb65-5c41-847c-a85b47bf53ef        | 13340     |
+| 87e48673-ad22-531e-aa14-8b5d66c1a46a        | 2563      |
+| f98ff050-a43b-5b41-b17b-45effd6da10a        | 1602      |
+| 31b66e4f-3eb4-59e0-80a5-e5b842d5749c        | 1552      |
+| e3543a9c-e2b1-5d58-aede-57815cdd6d9f        | 1177      |
+| f4c2db19-00da-5793-afe8-271516129549        | 731       |
+| 73b43526-8307-5605-8c39-d11104d28a50        | 616       |
+| 34d2cc78-08ea-5b79-b6e8-c33f4c3d11f8        | 389       |
+| c5517c9c-cfad-5ff5-9eda-e42229ff6edf        | 367       |
+| 2fd6739b-65ec-5cf1-a0b3-44f34477442c        | 334       |
+
+### Ten Categories with the Lowest Resolution Rate
+
+| Category ID                                | Resolution Rate (%) |
+|--------------------------------------------|----------------------|
+| 789599ea-e409-5b27-8044-dd5318073358        | 14.02                |
+| 055fcaed-ed21-589e-84b2-2d41b800dcd4        | 20.83                |
+| f1acb075-194a-5d2d-b91c-81d1575060a9        | 34.15                |
+| f98ff050-a43b-5b41-b17b-45effd6da10a        | 51.95                |
+| 34d2cc78-08ea-5b79-b6e8-c33f4c3d11f8        | 55.21                |
+| 93ef56b8-6c6d-5b2c-aa39-682934cfe035        | 68.53                |
+| 1353e9b1-00a7-5af5-bbab-f15fca2072b5        | 68.97                |
+| f4c2db19-00da-5793-afe8-271516129549        | 73.67                |
+| c5517c9c-cfad-5ff5-9eda-e42229ff6edf        | 76.62                |
+| f7d4a132-1323-5301-a442-ae8034fdb6dd        | 90.45                |
+
+
+
+### Ten Categories with the Fastest Resolution Time
+
+| Category ID                                | Avg Resolution Time (Hours) |
+|--------------------------------------------|-----------------------------|
+| b5476f04-08eb-5c22-aa84-04a71ee58786        | 5.18                        |
+| 436df70a-2aa8-5bbe-8119-d3ba89e2ab24        | 8.39                        |
+| 732e6230-b4dc-5631-ab77-bb4f8aa5e1d7        | 9.71                        |
+| 157d819a-5f4a-5064-8c87-325d3651c446        | 10.3                        |
+| 9b4d4214-1972-5eec-9b58-5e8ef98c9271        | 10.49                       |
+| 1353e9b1-00a7-5af5-bbab-f15fca2072b5        | 10.9                        |
+| eea1b9cc-5177-55bd-af1e-b525babe64e0        | 11.18                       |
+| 71e8acad-6154-5fb6-be3d-3c13cacfae8d        | 11.4                        |
+| 49587e0e-32be-5a93-ba8b-a6f782f01470        | 11.48                       |
+| 34d2cc78-08ea-5b79-b6e8-c33f4c3d11f8        | 11.53                       |
+
+
+### Hourly Distribution of Chats by Day of Week
+![Chat Distribution](assets/img_3.png)
