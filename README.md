@@ -59,6 +59,12 @@ This project is focused on orchestrating data workflows using Airflow and dbt fo
 The `anonymize_large_csv_chunked` DAG in the Airflow UI will look like the below image:
 ![Project Structure](assets/img.png)
 
+## Assumptions
+
+1. **Handling `NULL` Values for Disabled Categories**
+    - In the **categories** table, if the disabled column is `NULL` for a specific `id`, I assume that the `disabled` value from the corresponding `parent_id` should be used. For example, in the row `('161162d4-18b9-5cb0-be08-b54cbc321c37', '6c8be681-f04a-5a25-8efd-8feb0a21fc0e', None)`, since the `disabled` value for this `id` is `NULL`, we inherit the `disabled` status from its `parent_id` `('6c8be681-f04a-5a25-8efd-8feb0a21fc0e')`.
+2. **Timezone Conversion for Chats**
+   - The timestamps in the raw chats data are converted to AEDT (Australian Eastern Daylight Time), as customer service agents are always rostered based on Melbourne’s timezone.
 ## Usage
 
 - Run Data Ingestion and Transformation with dbt:
@@ -126,7 +132,6 @@ The approach to handling invalid data depends on the business rules and the natu
    - For example, if the `disabled` field in the `categories` table has `NULL` values, the issue can be corrected during transformation using a conditional statement like this
 
 ```sql_fluff_config
-
  select
         id,
         parent_id,
