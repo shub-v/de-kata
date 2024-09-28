@@ -108,4 +108,34 @@ For further monitoring and analysis, data profiling techniques can be employed t
 
 > 3. What would you do with invalid data that is identified?
 
- 
+The approach to handling invalid data depends on the business rules and the nature of the issue. There are a few potential strategies:
+
+1. **Stopping the Load**: If the invalid data is critical and cannot be corrected (e.g., a required field is not within accepted values), the pipeline should stop before proceeding. In this case, tests on the source data would raise an error, preventing the run from starting until the issue is resolved.
+
+    - For example, if the `disabled` field in the `categories` table must be either `True` or `False`, the test would look like this:- 
+
+```yaml
+      - name: disabled
+        description: Flag indicating if the category is disabled.
+        tests:
+          - accepted_values:
+              values: [ True, False ]
+```
+2. **Fixing the Data**: If the data can be corrected (e.g., through a lookup or default value), the test at the source level might raise a warning instead of an error. The data can then be fixed during the transformation process, with further tests in place to confirm that the corrections are successful.
+    
+   - For example, if the `disabled` field in the `categories` table has `NULL` values, the issue can be corrected during transformation using a conditional statement like this
+
+```sql_fluff_config
+
+ select
+        id,
+        parent_id,
+        case
+            when
+                disabled is null and parent_disabled is not null
+                then parent_disabled
+            else disabled
+        end as disabled
+
+```
+3. **Removing Bad Data**: If the invalid data can be excluded without affecting the overall pipeline, the process can continue with only the valid data. In this case, a warning test at the source level would monitor the occurrence of invalid data, while subsequent tests ensure the processed data is clean and usable.
