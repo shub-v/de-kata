@@ -161,8 +161,8 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 /.user.yml
-/de-kata.duckdb
-/dbt/de_kata1.duckdb
 /dbt/dbt_packages/
 /logs/
 /airflow/
+/de-kata.duckdb
+/dbt/de_kata.duckdb
