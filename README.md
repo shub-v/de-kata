@@ -98,6 +98,25 @@ The `anonymize_large_csv_chunked` DAG in the Airflow UI will look like the below
     - Username: `airflow`
     - Password: `airflow`
 
+## Data Governance
+
+In managing data quality and sensitivity within a data warehouse, my approach revolves around ensuring reliability and security throughout the pipeline.
+
+**Data Quality**:
+
+Ensuring data quality is fundamental to the successful operation of any data warehouse. My approach begins with defining data quality checks at every stage of the pipeline—starting from the source and continuing through transformations. I implement basic integrity checks such as unique and not null validations for key fields like identifiers and timestamps to prevent incomplete or duplicate data from entering the warehouse.
+
+In addition, I focus on enforcing referential integrity, ensuring relationships between related tables are valid (e.g., foreign keys must reference existing records). I also apply business logic checks to ensure the data aligns with expected patterns—for example, ensuring chronological accuracy between event timestamps.
+
+These quality controls ensure that any anomalies, inconsistencies, or errors are detected early in the pipeline, reducing the risk of poor-quality data propagating downstream. Automated alerts are configured to handle errors or flag unusual patterns, allowing for quick resolution and ensuring the data remains trustworthy and fit for use by analysts, data scientists, and business teams.
+
+**Data Sensitivity**:
+
+In managing sensitive data, my approach revolves around minimizing exposure and ensuring secure handling throughout the data lifecycle. The first step is to identify sensitive data, such as Personally Identifiable Information (PII) or financial information, using techniques like pattern matching, regular expressions, or machine learning models.
+
+Once identified, I enforce Role-Based Access Control (RBAC), limiting access to sensitive data based on roles and responsibilities within the organization. Only authorized users, such as compliance or legal teams, can access raw sensitive data, while others interact with anonymized or masked datasets. Data masking or tokenization ensures that sensitive fields are obscured before being shared or processed further, thus reducing the risk of accidental exposure.
+
+
 ## Quality
 > 1. How would you measure the overall data quality of these files?
 
@@ -165,11 +184,29 @@ The approach to handling invalid data depends on the business rules and the natu
 
 
 ## Sensitivity
-> 1. What measures will need to be taken in controlling access to this open text
-data?
+> 1. What measures will need to be taken in controlling access to this open text data?
+
+1. **Role-Based Acess Control (RBAC)**
+   - Implement RBAC to limit access to sensitive data based on roles. Not everyone in the company needs access to full raw data or sensitive information.
+2. **Segregation of Sensitive Data**
+    - Create restricted views that mask sensitive information for general users, providing limited access to open text data.
+3. **Redaction of Sensitive Data**
+    - Use automated processes to redact sensitive information like names, phone numbers, or email addresses before the data is made accessible to general users.
+
+> 2. What measures would you put in place regarding its secure storage? 
+
+Assuming the source data is in a BigQuery table, dbt is used for transformation, and Snowflake serves as the data lake, securely storing text-based PII requires several key measures. These include encryption both at rest and in transit, strict access controls, and masking or tokenizing sensitive data before storage. Secure transformations in dbt help protect the data throughout processing.
+
+Additional security measures like dynamic data masking and column-level encryption in Snowflake safeguard sensitive data post-transformation. Finally, implementing robust retention and deletion policies reduces the risk of prolonged exposure to sensitive information.
+
+> 3. If redaction of sensitive text was necessary, how would you tackle it?
+
+  Assuming the data is ingested, the next step is to identify any PII. To keep things simple, I would use regular expressions to detect common PII formats such as emails, phone numbers, and credit card numbers. Once identified, the PII data is flagged for further action, after which it will be redacted. Once the sensitive information is redacted, the clean data will be securely stored in the data lake.
 
 
-### Chat Resolution Statistics
+## Analysis Results
+
+### Dates of Lowest and Highest Resolved Chats
 
 | Stat Description                                  | Date        | Value |
 |---------------------------------------------------|-------------|-------|
