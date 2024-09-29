@@ -270,3 +270,26 @@ Additional security measures like dynamic data masking and column-level encrypti
 
 ### Hourly Distribution of Chats by Day of Week
 ![Chat Distribution](assets/img_3.png)
+
+
+## Recommendations
+
+1. ### Container Orchestration ###
+    - As the number of services grows, using a container orchestration platform like `Kubernetes` becomes essential. Kubernetes provides horizontal scaling, automatic failover, and resource optimization. It allows us to dynamically scale the number of running containers (e.g., for dbt models, Airflow workers) based on current demand, ensuring efficient resource usage.
+
+2. ### Clustered Airflow Setup ###
+    - Instead of using a local Airflow instance with a `Local executor`, we can consider setting up a ``KubernetesExecutor``. This allows Airflow to distribute workloads across multiple worker nodes, making it possible to handle higher volumes of tasks and ensuring more efficient resource utilization.
+
+3. ### Monitoring and Alerts ###
+    - As the pipeline scales, ensuring proactive monitoring becomes crucial. We can implement robust monitoring and alerting systems using tools like `Prometheus`, `Grafana`, or `DataDog`. This allows us to keep track of resource usage, task execution times, and pipeline bottlenecks, helping you optimize performance before issues escalate.
+
+4. ### Modularization and Reusability ###
+    - Break down complex dbt models and DAGs into smaller, reusable modules. Modularization simplifies maintenance and testing by allowing for changes to be made to individual components without affecting the entire pipeline. This also increases flexibility in building new models and workflows, as existing components can be reused.
+
+5. ### Data Validation and Testing ###
+    - Expand on the current data validation practices by integrating continuous data quality checks using frameworks like `Great Expectations` or `SodaSQL`. These tools allow for more granular checks beyond dbt's capabilities, such as verifying data distribution, detecting anomalies, and validating adherence to business rules. We can establish `CI/CD` pipelines to automate testing and deployment of dbt models, ensuring that every change is validated before it reaches production.
+
+6. ### Pipeline Observability ###
+    - Implement enhanced observability into the pipeline through logging and metrics. Tools like `Prometheus`, `Grafana`, or `DataDog` can provide real-time monitoring and alerting based on pipeline health, task duration, and system performance. Having a robust monitoring system enables early detection of issues, such as pipeline bottlenecks, and helps prevent downtime.
+
+
