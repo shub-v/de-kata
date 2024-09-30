@@ -12,7 +12,7 @@ with DAG(
     # Run dbt tests on raw data
     source_tests = BashOperator(
         task_id='dbt_source_test',
-        bash_command='dbt test --select source:raw_layer'
+        bash_command='dbt deps && dbt test --select source:raw_layer'
     )
 
     # Task to run dbt for stg__chats, stg__categories and chat_volume_analysis
