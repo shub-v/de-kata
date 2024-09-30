@@ -45,7 +45,7 @@ This project is focused on orchestrating data workflows using Airflow and dbt fo
     ```sh
     dbt test # Runs all tests defined in the project, including source and model tests
     ```
-   ```shell
+    ```shell
     dbt test --select source:raw_layer # Runs only the tests defined in the source layer
     ```
     ```shell
