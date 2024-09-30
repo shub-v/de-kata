@@ -7,7 +7,7 @@ with DAG(
         default_args={'owner': 'airflow'},
         schedule_interval='@daily',
         start_date=days_ago(1),
-        catchup=False,
+        catchup=True,
 ) as dag:
     # Run dbt tests on raw data
     source_tests = BashOperator(
