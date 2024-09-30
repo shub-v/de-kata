@@ -23,7 +23,7 @@ This project is focused on orchestrating data workflows using Airflow and dbt fo
 
 1. Goto the project directory:
     ```sh
-    cd de-kata
+    cd de-kata-main
     ```
 
 2. Start the data pipeline:
