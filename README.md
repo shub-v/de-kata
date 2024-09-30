@@ -36,7 +36,7 @@ This project is focused on orchestrating data workflows using Airflow and dbt fo
     - Username: `airflow`
     - Password: `airflow`
 
-4. Test dbt models:
+4. Test dbt models locally:
     ```sh
     python3 -m venv .venv # Create a virtual environment
     source .venv/bin/activate # Activate the virtual environment
