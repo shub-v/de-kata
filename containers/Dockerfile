@@ -17,3 +17,12 @@ ENV DBT_PROFILES_DIR=/opt/airflow/dbt
 ENV DBT_PROJECT_DIR=/opt/airflow/dbt
 ENV RAW_DATA_PATH=/opt/airflow/raw_data
 
+# Copy dbt project files into the container
+COPY ./dbt /opt/airflow/dbt
+
+# Install dbt dependencies
+RUN dbt deps --profiles-dir $DBT_PROFILES_DIR
+
+## Set entrypoint
+#ENTRYPOINT ["dbt"]
+#CMD ["--version"]
