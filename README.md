@@ -290,7 +290,4 @@ Additional security measures like dynamic data masking and column-level encrypti
 5. ### Data Validation and Testing ###
     - Expand on the current data validation practices by integrating continuous data quality checks using frameworks like `Great Expectations` or `SodaSQL`. These tools allow for more granular checks beyond dbt's capabilities, such as verifying data distribution, detecting anomalies, and validating adherence to business rules. We can establish `CI/CD` pipelines to automate testing and deployment of dbt models, ensuring that every change is validated before it reaches production.
 
-6. ### Pipeline Observability ###
-    - Implement enhanced observability into the pipeline through logging and metrics. Tools like `Prometheus`, `Grafana`, or `DataDog` can provide real-time monitoring and alerting based on pipeline health, task duration, and system performance. Having a robust monitoring system enables early detection of issues, such as pipeline bottlenecks, and helps prevent downtime.
-
 
