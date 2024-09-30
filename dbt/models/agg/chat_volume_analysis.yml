@@ -33,12 +33,8 @@ models:
 
       - name: stat_attribute_2
         description: |
-          The number of chats resolved on the given date or time period, or the number of chats within a category.
-        
-
-      - name: resolution_rate_percentage
-        description: |
           This column contains either:
+          - The number of chats resolved on the given date or time period, or the number of chats within a category.
           - The percentage of chats that were resolved for a given category or parent category. Only applies to the "Lowest Resolution Rate" statistic.
           - The average resolution time (in hours) for a given category or parent category. Only applies to the "Fastest Resolution Time" statistic.
           - The actual value for the "Median Customer-Initiated Chats Resolved per Day" statistic.

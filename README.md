@@ -56,7 +56,7 @@ This project is focused on orchestrating data workflows using Airflow and dbt fo
 - **Docker**: To containerize the dbt and Airflow environment.
 ![Project Architecture](assets/img_1.png)
 
-The use of dbt for data transformation ensures that the pipeline is modular and easy to maintain, while DuckDB provides a high-performance local data warehouse for running complex queries. Airflow manages orchestration, scheduling, and monitoring, while Postgres ensures that the metadata and logs are stored persistently. Docker ties everything together by providing a consistent environment for running the entire stack, ensuring that the setup is reproducible across different environments.
+The use of `dbt` for data transformation ensures that the pipeline is modular and easy to maintain, while `DuckDB` provides a high-performance local data warehouse for running complex queries. `Airflow` manages orchestration, scheduling, and monitoring, while `Postgres` ensures that the metadata and logs are stored persistently. `Docker` ties everything together by providing a consistent environment for running the entire stack, ensuring that the setup is reproducible across different environments.
 
 This architecture is highly adaptable, allowing for future growth, including the integration of new data sources, more complex transformations, or the scaling of workloads.
 
@@ -65,6 +65,7 @@ This architecture is highly adaptable, allowing for future growth, including the
 
 - **DBT**: The dbt project is located in the `dbt` directory.
   - **`dbt/models`**: Contains the SQL models and tests for the dbt project.
+  - **`dbt/macros`**: Contains the SQL macros used in the dbt project.
   - **`dbt/dbt_project.yml`**: Contains the dbt project configuration.
   - **`dbt/profiles.yml`**: Contains the dbt profile configuration.
 - **DAGs**: The DAG for the project are defined in the `dags` directory.
@@ -93,7 +94,7 @@ The `anonymize_large_csv_chunked` DAG in the Airflow UI will look like the below
     The raw data will be transformed and tested using dbt.
 
     
-- Alternatively, you can manually trigger the DAG from the Airflow UI:
+- Alternatively, you can trigger the DAG from the Airflow UI:
     - URL: [http://localhost:8080](http://localhost:8080)
     - Username: `airflow`
     - Password: `airflow`
@@ -104,7 +105,7 @@ In managing data quality and sensitivity within a data warehouse, my approach re
 
 **Data Quality**:
 
-Ensuring data quality is fundamental to the successful operation of any data warehouse. My approach begins with defining data quality checks at every stage of the pipeline—starting from the source and continuing through transformations. I implement basic integrity checks such as unique and not null validations for key fields like identifiers and timestamps to prevent incomplete or duplicate data from entering the warehouse.
+Ensuring data quality is fundamental to the successful operation of any data warehouse. My approach begins with defining data quality checks at every stage of the pipeline—starting from the source and continuing through transformations. I implement basic integrity checks such as `unique` and `not null` validations for key fields like identifiers and timestamps to prevent incomplete or duplicate data from entering the warehouse.
 
 In addition, I focus on enforcing referential integrity, ensuring relationships between related tables are valid (e.g., foreign keys must reference existing records). I also apply business logic checks to ensure the data aligns with expected patterns—for example, ensuring chronological accuracy between event timestamps.
 
@@ -112,7 +113,7 @@ These quality controls ensure that any anomalies, inconsistencies, or errors are
 
 **Data Sensitivity**:
 
-In managing sensitive data, my approach revolves around minimizing exposure and ensuring secure handling throughout the data lifecycle. The first step is to identify sensitive data, such as Personally Identifiable Information (PII) or financial information, using techniques like pattern matching, regular expressions, or machine learning models.
+In managing sensitive data, my approach revolves around minimizing exposure and ensuring secure handling throughout the data lifecycle. The first step is to identify sensitive data, such as Personally Identifiable Information `(PII)` or financial information, using techniques like pattern matching, regular expressions, or machine learning models.
 
 Once identified, I enforce Role-Based Access Control (RBAC), limiting access to sensitive data based on roles and responsibilities within the organization. Only authorized users, such as compliance or legal teams, can access raw sensitive data, while others interact with anonymized or masked datasets. Data masking or tokenization ensures that sensitive fields are obscured before being shared or processed further, thus reducing the risk of accidental exposure.
 
