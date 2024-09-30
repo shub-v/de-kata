@@ -38,7 +38,7 @@ This project is focused on orchestrating data workflows using Airflow and dbt fo
 
 4. Test dbt models:
     ```sh
-    python3 -m venv .vevnv # Create a virtual environment
+    python3 -m venv .venv # Create a virtual environment
     source .venv/bin/activate # Activate the virtual environment
     pip3 install -r containers/requirements.txt # Install the required packages
     ```
