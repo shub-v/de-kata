@@ -166,3 +166,4 @@ cython_debug/
 /airflow/
 /de-kata.duckdb
 /dbt/de_kata.duckdb
+/de_kata.duckdb
