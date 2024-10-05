@@ -8,7 +8,7 @@ with source as (
     from {{ source('raw_layer', 'de_test_chats') }}
 
     {% if is_incremental() %}
-        where created_at > (select max(created_at_aedt) from {{ this }})
+        where adjust_to_aedt_aest(created_at) > (select max(created_at_aedt) from {{ this }})
     {% endif %}
 ),
 
