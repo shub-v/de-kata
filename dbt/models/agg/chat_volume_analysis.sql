@@ -11,13 +11,6 @@ WITH chats_resolved AS (
         extract(DOW FROM created_at_aedt) AS day_of_week,
         extract(HOUR FROM created_at_aedt) AS hour_of_day
     FROM {{ ref('stg__chats') }}
-    GROUP BY
-        id,
-        resolution_date,
-        is_customer_initiated,
-        chat_category_id,
-        created_at_aedt,
-        resolved_at_aedt
 ),
 
 categories AS (
@@ -27,7 +20,6 @@ categories AS (
         parent_id,
         disabled
     FROM {{ ref('stg__categories') }}
---    where parent_id is not null
 ),
 
 
