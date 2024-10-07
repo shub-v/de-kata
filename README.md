@@ -137,7 +137,8 @@ Data quality checks implemented at multiple stages of the pipeline to ensure the
    
 By placing checks at both the source and staging layers, I ensure that data quality is assessed at every critical step of the pipeline, providing clean and reliable data for downstream processes.
 
-> 2. How would you measure the overall data quality of these files?
+> 2. What measures would you put in place to identify issues which would effect
+data quality?
 
 dbt tests implemented to enforce the data quality checks mentioned earlier. These tests validate key aspects across both the source and staging layers.
 

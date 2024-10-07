@@ -12,6 +12,8 @@ models:
           - relationships:
               to: ref('stg__categories')
               field: id
+          - dbt_utils.expression_is_true:
+              expression: '<> id'
       - name: disabled
         description: Flag indicating if the category is disabled.
         tests:
